@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaderboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/register">Register</a>
+    <a href="/login">Login</a>
+    <a href="/admin_login">Admin</a>
+</div>
+
+<div class="page-shell leaderboard-page">
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Live Vote Breakdown</h1>
+            <p>See the current standings with live percentages and vote totals for each candidate.</p>
+        </div>
+    </section>
+
+    <p style="text-align:center; opacity:.82; margin-top: 16px;">Total votes cast: {{ total_votes }}</p>
+
+    {% if leader %}
+    <div class="leader-row current-leader" style="margin-bottom: 24px;">
+        <div class="leader-name">Top Candidate: {{ leader.name }}</div>
+        <div>{{ leader.votes }} votes · {{ leader.percentage }}%</div>
+    </div>
+    {% endif %}
+
+    <div class="chart-card">
+        <canvas id="leader-chart"></canvas>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Candidate Results</div>
+        <div class="leader-stats">
+            {% for item in stats %}
+            <div class="leader-row">
+                <div class="leader-name">{{ item.name }}</div>
+                <div class="leader-bar-wrap">
+                    <div class="leader-bar" style="width: {{ item.percentage }}%;"></div>
+                </div>
+                <div>{{ item.votes }} votes · {{ item.percentage }}%</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <a class="leader-cta" href="/vote">Back to Vote</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const labels = {{ stats|map(attribute='name')|list|tojson }};
+    const data = {{ stats|map(attribute='votes')|list|tojson }};
+    const percentages = {{ stats|map(attribute='percentage')|list|tojson }};
+    const colors = ['#ff416c','#3a7bd5','#f36c3f','#5d2e8c','#2d9cdb','#FF9933','#777'];
+
+    new Chart(document.getElementById('leader-chart'), {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: colors.slice(0, labels.length),
+                borderColor: '#ffffff',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        color: 'white',
+                        boxWidth: 14,
+                        padding: 16
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const votes = context.parsed;
+                            const pct = percentages[context.dataIndex] || 0;
+                            return context.label + ': ' + votes + ' votes (' + pct + '%)';
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

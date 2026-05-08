@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vote</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/register">Register</a>
+    <a href="/login">Login</a>
+    <a href="/admin_login">Admin</a>
+</div>
+
+<div class="page-shell">
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Vote for Your Favourite Candidate</h1>
+            <p>Choose the candidate symbol that represents your voice. After voting, your result will be visible immediately on the leaderboard.</p>
+        </div>
+        <div class="hero-actions">
+            <a href="/leader" class="cta-button secondary">View Leaderboard</a>
+        </div>
+    </section>
+
+    <form method="POST">
+        <div class="grid vote-grid">
+            {% for c in candidates %}
+            <label class="card vote-card">
+                <div class="symbol">
+                    {% if c[1] == 'TVK' %}
+                        <img src="/static/images/tvk.svg" alt="TVK symbol">
+                    {% elif c[1] == 'DMK' %}
+                        <img src="/static/images/dmk.svg" alt="DMK symbol">
+                    {% elif c[1] == 'ADMK' %}
+                        <img src="/static/images/admk.svg" alt="ADMK symbol">
+                    {% elif c[1] == 'NTK' %}
+                        <img src="/static/images/ntk.svg" alt="NTK symbol">
+                    {% elif c[1] == 'PMK' %}
+                        <img src="/static/images/pmk.svg" alt="PMK symbol">
+                    {% elif c[1] == 'BJP' %}
+                        <img src="/static/images/bjp.svg" alt="BJP symbol">
+                    {% else %}
+                        <img src="/static/images/nota.svg" alt="NOTA symbol">
+                    {% endif %}
+                </div>
+
+                <h3>{{ c[1] }}</h3>
+                <input type="radio" name="candidate" value="{{ c[0] }}">
+            </label>
+            {% endfor %}
+        </div>
+
+        <button class="primary" type="submit">✅ Submit Vote</button>
+    </form>
+</div>
+
+<script>
+    const cards = document.querySelectorAll('.vote-card');
+
+    cards.forEach(card => {
+        card.addEventListener('click', () => {
+            cards.forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            card.querySelector('input').checked = true;
+        });
+    });
+</script>
+
+</body>
+</html>

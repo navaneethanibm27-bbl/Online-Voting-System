@@ -1,0 +1,57 @@
+<link rel="stylesheet" href="/static/style.css">
+
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/register">Register</a>
+    <a href="/login">Login</a>
+    <a href="/admin_login">Admin</a>
+</div>
+
+<div class="page-shell">
+    <div class="section">
+        <h1 class="section-title">Election Results</h1>
+        <p style="opacity:.8; margin-bottom:24px; max-width:720px;">A powerful visual summary of vote counts across all candidates.</p>
+        <div class="chart-card">
+            <canvas id="chart"></canvas>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const labels = {{ results|map(attribute=0)|list|tojson }};
+    const data = {{ results|map(attribute=1)|list|tojson }};
+
+    new Chart(document.getElementById('chart'), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Votes',
+                data: data,
+                backgroundColor: labels.map((_, index) => ['#ff416c','#3a7bd5','#f36c3f','#5d2e8c','#2d9cdb','#FF9933','#777'][index % 7]),
+                borderRadius: 12,
+                borderSkipped: false
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x: {
+                    ticks: { color: 'white' },
+                    grid: { display: false }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: { color: 'white' },
+                    grid: { color: 'rgba(255,255,255,0.12)' }
+                }
+            }
+        }
+    });
+</script>

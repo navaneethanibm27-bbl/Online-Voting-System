@@ -1,0 +1,395 @@
+:root {
+    --bg-start: #0d1230;
+    --bg-mid: #1d2b64;
+    --bg-end: #0c1a3f;
+    --surface: rgba(255, 255, 255, 0.08);
+    --surface-strong: rgba(255, 255, 255, 0.15);
+    --surface-border: rgba(255, 255, 255, 0.14);
+    --text: #f4f7ff;
+    --muted: rgba(244, 247, 255, 0.75);
+    --accent: #ff416c;
+    --accent2: #ff4b2b;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), transparent 25%),
+                radial-gradient(circle at bottom right, rgba(45, 156, 219, 0.14), transparent 20%),
+                linear-gradient(135deg, var(--bg-start), var(--bg-mid) 45%, var(--bg-end));
+    color: var(--text);
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle at 20% 20%, rgba(255, 65, 108, 0.12), transparent 18%),
+                      radial-gradient(circle at 80% 15%, rgba(45, 156, 219, 0.12), transparent 15%),
+                      radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0.06), transparent 20%);
+    z-index: -1;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+.navbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    padding: 18px 24px;
+    background: rgba(7, 17, 48, 0.78);
+    backdrop-filter: blur(18px);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.navbar a {
+    color: var(--text);
+    padding: 10px 18px;
+    border-radius: 999px;
+    transition: transform 0.2s ease, background 0.2s ease;
+    font-weight: 600;
+}
+
+.navbar a:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-1px);
+}
+
+.page-shell {
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 24px 0 48px;
+}
+
+.hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 26px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 28px;
+    padding: 40px 36px;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(18px);
+}
+
+.hero h1 {
+    margin: 0;
+    font-size: clamp(2.8rem, 4vw, 4.5rem);
+    line-height: 1.02;
+}
+
+.hero p {
+    margin: 18px 0 0;
+    max-width: 720px;
+    opacity: 0.8;
+    font-size: 1.05rem;
+    line-height: 1.85;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 16px;
+}
+
+.cta-button,
+button.primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 26px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    color: white;
+    font-weight: 700;
+    box-shadow: 0 20px 50px rgba(255, 65, 108, 0.25);
+}
+
+.cta-button.secondary,
+button.secondary {
+    background: rgba(255, 255, 255, 0.12);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.cta-button:hover,
+button.primary:hover,
+button.secondary:hover {
+    transform: translateY(-2px);
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 24px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.18);
+}
+
+.form-box {
+    width: min(540px, 100%);
+    margin: 0 auto;
+    padding: 36px 30px;
+    display: grid;
+    gap: 18px;
+}
+
+.form-title {
+    margin: 0;
+    font-size: clamp(2rem, 3vw, 2.6rem);
+    line-height: 1.05;
+}
+
+.form-subtitle {
+    margin: 0;
+    opacity: 0.8;
+    line-height: 1.8;
+}
+
+.form-group {
+    display: grid;
+    gap: 12px;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    border: none;
+    border-radius: 18px;
+    padding: 16px 18px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    outline: none;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: rgba(255, 255, 255, 0.65);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    background: rgba(255, 255, 255, 0.14);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+button {
+    font: inherit;
+}
+
+.section {
+    margin: 40px 0;
+}
+
+.section-title {
+    margin: 0 0 18px;
+    font-size: clamp(2rem, 2.5vw, 2.8rem);
+}
+
+.grid {
+    display: grid;
+    gap: 20px;
+}
+
+.grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.vote-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.card.vote-card {
+    padding: 26px 20px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+}
+
+.card.vote-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.22);
+}
+
+.card.vote-card.selected {
+    border-color: rgba(255, 65, 108, 0.8);
+    box-shadow: 0 30px 70px rgba(255, 65, 108, 0.22);
+}
+
+.vote-card h3 {
+    margin: 0 0 12px;
+}
+
+.symbol {
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+}
+
+.symbol img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.leaderboard-page {
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+.chart-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 28px;
+    padding: 28px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(12px);
+}
+
+.leader-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 18px;
+    padding: 18px 22px;
+}
+
+.leader-row.current-leader {
+    background: linear-gradient(135deg, rgba(255, 210, 80, 0.2), rgba(255, 255, 255, 0.08));
+    border-color: rgba(255, 210, 80, 0.35);
+}
+
+.leader-name {
+    font-weight: 700;
+}
+
+.leader-bar-wrap {
+    flex: 1;
+    min-width: 150px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    overflow: hidden;
+    height: 14px;
+}
+
+.leader-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+}
+
+.leader-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 22px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.leader-cta:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.candidate-edit-form {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    align-items: center;
+}
+
+.candidate-edit-form input {
+    border-radius: 16px;
+}
+
+.candidate-list {
+    display: grid;
+    gap: 14px;
+}
+
+.admin-panel {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 24px 0;
+}
+
+.admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+@media (max-width: 900px) {
+    .grid-3,
+    .grid-2,
+    .vote-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .page-shell {
+        width: calc(100% - 24px);
+    }
+    .navbar {
+        justify-content: center;
+    }
+    .hero {
+        padding: 28px 22px;
+    }
+}

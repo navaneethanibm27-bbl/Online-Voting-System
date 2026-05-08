@@ -1,0 +1,25 @@
+<link rel="stylesheet" href="/static/style.css">
+
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/register">Register</a>
+    <a href="/login">Login</a>
+    <a href="/admin_login">Admin</a>
+</div>
+
+<div class="page-shell">
+    <div class="card form-box">
+        <div>
+            <h1 class="form-title">Voter Login</h1>
+            <p class="form-subtitle">Sign in to cast your vote or view the leaderboard after voting.</p>
+        </div>
+
+        <form method="post">
+            <div class="form-group">
+                <input name="email" type="email" placeholder="Email" required>
+                <input name="password" type="password" placeholder="Password" required>
+            </div>
+            <button class="primary" type="submit">Login</button>
+        </form>
+    </div>
+</div>

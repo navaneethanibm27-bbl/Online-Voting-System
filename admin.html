@@ -1,0 +1,40 @@
+<link rel="stylesheet" href="/static/style.css">
+
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/register">Register</a>
+    <a href="/login">Login</a>
+    <a href="/admin_login">Admin</a>
+</div>
+
+<div class="page-shell admin-panel">
+    <div class="admin-header">
+        <div>
+            <h1 class="section-title">Admin Dashboard</h1>
+            <p class="form-subtitle">Add new candidates and update existing names from here.</p>
+        </div>
+        <a href="/leader" class="cta-button secondary">View Live Leaderboard</a>
+    </div>
+
+    <div class="card" style="padding: 30px;">
+        <form method="post" class="form-group">
+            <input name="name" placeholder="New candidate name" required>
+            <button class="primary" type="submit">Add Candidate</button>
+        </form>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Current Candidates</div>
+        <div class="candidate-list">
+            {% for c in candidates %}
+            <div class="card" style="padding: 20px;">
+                <form method="post" class="candidate-edit-form">
+                    <input type="hidden" name="edit_id" value="{{ c[0] }}">
+                    <input name="edit_name" value="{{ c[1] }}" placeholder="Candidate name">
+                    <button class="secondary" type="submit">Save</button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
